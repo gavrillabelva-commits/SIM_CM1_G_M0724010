@@ -13,6 +13,7 @@ output:
     number_sections: true
     code_folding: hide
     theme: cosmo
+    css: academic-elegance-theme.css
     highlight: null
     self_contained: true
 ---
@@ -91,15 +92,15 @@ h3 { font-size: 1.2rem; color: var(--primary-light); }
 
 /* ── Code blocks ── */
 pre {
-  background: #1A1A1A !important;
-  color: #FDFBF7 !important;
+  background: #FFFFFF !important;
+  color: #1A1A1A !important;
   border-radius: 10px;
-  border: none;
+  border: 1px solid var(--border);
   font-size: .82rem;
   padding: 1.1rem 1.3rem;
-  box-shadow: 0 4px 16px var(--shadow-theme);
+  box-shadow: 0 4px 16px var(--shadow-soft);
 }
-code { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: .82rem; }
+code { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: .82rem; color: #1A1A1A; }
 p code {
   background: var(--primary-ultra);
   color: var(--primary);
@@ -214,6 +215,7 @@ hr { border: none; border-top: 2px solid var(--border); margin: 2rem 0; }
    RESPONSIVE IMAGES / PLOTS
    ===================================================== */
 img { max-width: 100%; border-radius: 10px; }
+.html-widget { max-width: 100% !important; overflow-x: auto; }
 
 ```
 
@@ -640,40 +642,40 @@ blockbuster_n = sum(df_features$cluster == "Blockbuster")
 
 <div class="kpi-grid">
 
-  <div class="kpi-card">
-    <div class="kpi-icon">🎬</div>
-    <div class="kpi-label">Total Film</div>
-    <div class="kpi-value">`r total_films`</div>
-    <div class="kpi-sub">film aktif di katalog</div>
-  </div>
+<div class="kpi-card">
+<div class="kpi-icon">🎬</div>
+<div class="kpi-label">Total Film</div>
+<div class="kpi-value">`r total_films`</div>
+<div class="kpi-sub">film aktif di katalog</div>
+</div>
 
-  <div class="kpi-card">
-    <div class="kpi-icon">💰</div>
-    <div class="kpi-label">Total Revenue</div>
-    <div class="kpi-value">$`r format(round(total_revenue), big.mark = ",")`</div>
-    <div class="kpi-sub">dari seluruh transaksi</div>
-  </div>
+<div class="kpi-card">
+<div class="kpi-icon">💰</div>
+<div class="kpi-label">Total Revenue</div>
+<div class="kpi-value">$`r format(round(total_revenue), big.mark = ",")`</div>
+<div class="kpi-sub">dari seluruh transaksi</div>
+</div>
 
-  <div class="kpi-card">
-    <div class="kpi-icon">🏆</div>
-    <div class="kpi-label">Blockbuster</div>
-    <div class="kpi-value">`r blockbuster_n`</div>
-    <div class="kpi-sub">film prioritas tinggi</div>
-  </div>
+<div class="kpi-card">
+<div class="kpi-icon">🏆</div>
+<div class="kpi-label">Blockbuster</div>
+<div class="kpi-value">`r blockbuster_n`</div>
+<div class="kpi-sub">film prioritas tinggi</div>
+</div>
 
-  <div class="kpi-card">
-    <div class="kpi-icon">🔄</div>
-    <div class="kpi-label">Avg Turnover</div>
-    <div class="kpi-value">`r avg_turnover`x</div>
-    <div class="kpi-sub">rotasi rata-rata per salinan</div>
-  </div>
+<div class="kpi-card">
+<div class="kpi-icon">🔄</div>
+<div class="kpi-label">Avg Turnover</div>
+<div class="kpi-value">`r avg_turnover`x</div>
+<div class="kpi-sub">rotasi rata-rata per salinan</div>
+</div>
 
-  <div class="kpi-card">
-    <div class="kpi-icon">📊</div>
-    <div class="kpi-label">Jumlah Cluster</div>
-    <div class="kpi-value">`r n_clusters`</div>
-    <div class="kpi-sub">segmen portofolio</div>
-  </div>
+<div class="kpi-card">
+<div class="kpi-icon">📊</div>
+<div class="kpi-label">Jumlah Cluster</div>
+<div class="kpi-value">`r n_clusters`</div>
+<div class="kpi-sub">segmen portofolio</div>
+</div>
 
 </div>
 ---
@@ -722,7 +724,7 @@ df_features %>%
 
 ## Peta Segmentasi K-Means: Turnover Rate vs Total Revenue
 
-```{r segmentasi-kmeans}
+```{r segmentasi-kmeans, out.width="100%"}
 palette_clusters <- c(
   "Blockbuster" = "#FFD700",   # Gold
   "Hidden Gem"  = "#8A2BE2",   # BlueViolet
@@ -995,3 +997,37 @@ Dalam menginterpretasikan hasil segmentasi ini, terdapat beberapa batasan metodo
 sessionInfo()
 ```
 
+
+<!-- Academic Elegance: Progress Bar & Scroll Top -->
+<div id="reading-progress-bar"></div>
+<button id="scroll-to-top" title="Scroll to top">&#8593;</button>
+<script>
+(function() {
+  // Reading progress bar
+  var progressBar = document.getElementById('reading-progress-bar');
+  window.addEventListener('scroll', function() {
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var scrollPercent = (scrollTop / docHeight) * 100;
+    if (progressBar) progressBar.style.width = scrollPercent + '%';
+    
+    // Scroll to top button visibility
+    var btn = document.getElementById('scroll-to-top');
+    if (btn) {
+      if (scrollTop > 400) {
+        btn.classList.add('visible');
+      } else {
+        btn.classList.remove('visible');
+      }
+    }
+  });
+  
+  // Scroll to top click
+  var btn = document.getElementById('scroll-to-top');
+  if (btn) {
+    btn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+})();
+</script>
